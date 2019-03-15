@@ -46,50 +46,38 @@ function readProducts() {
 }
 
 function askQuantity(item_id) {
-  connection.query("SELECT stock_quantity FROM products WHERE ?", { item_id: parseInt(item_id) }, function (err, res) {
-    if (err) throw err;
-    for(var i = 0; i < res.length; i++){
-    var currentStock = res[0].stock_quantity;
-    console.log(currentStock);
-    connection.end();
-    }
-  });
+  inquirer.prompt({
+
+    name: "quantity",
+    type: "input",
+    message: "How many units of this item would you like to purchase?"
+
+  }).then(function (user) {
+   connection.query("SELECT stock_quantity FROM products WHERE ?", { item_id: parseInt(item_id) }, function (err, res) {
+      // if (err) throw err;
+      for (var i = 0; i < res.length; i++) { 
+        var currentStock = res[0].stock_quantity;
+        // connection.end();
+        if (user.quantity > res[0].stock_quantity) {
+          console.log("Sorry! Not enough in stock. Please try again later.");
+          // askQuantity();
+          readProducts();
+        } else {
+          console.log("Awesome! We can fulfull your order.");
+          console.log("Quantity: " + res[0].stock_quantity - user.quantity);
+          // console.log("----------------");
+          updatedQ= parseInt(res[0].stock_quantity) - parseInt(user.quantity)
+          console.log("below should be 47")
+          console.log(updatedQ)
+          connection.query("UPDATE products SET stock_quantity = ? WHERE item_id = ?", [updatedQ , item_id ], function (err, res) {
+              console.log("updated")
+          })
+        
+          // var newStock = (res[i].stock_quantity - user.item_id);
+          // var purchaseId = (user.item_id);
+         
+        }
+      };
+    });
+  })
 }
-
-
-// }).then(function(userPurchase) {
-
-//   connection.query("SELECT * FROM products WHERE item_id=?", userPurchase.inputId, function(err, res) {
-//       for (var i = 0; i < res.length; i++) {
-
-//           if (userPurchase.inputNumber > res[i].stock_quantity) {
-
-//               console.log("===================================================");
-//               console.log("Sorry! Not enough in stock. Please try again later.");
-//               console.log("===================================================");
-//               startPrompt();
-
-//           } else {
-//               //list item information for user for confirm prompt
-//               console.log("===================================");
-//               console.log("Awesome! We can fulfull your order.");
-//               console.log("===================================");
-//               console.log("You've selected:");
-//               console.log("----------------");
-//               console.log("Item: " + res[i].product_name);
-//               console.log("Department: " + res[i].department_name);
-//               console.log("Price: " + res[i].price);
-//               console.log("Quantity: " + userPurchase.inputNumber);
-//               console.log("----------------");
-//               console.log("Total: " + res[i].price * userPurchase.inputNumber);
-//               console.log("===================================");
-
-//               var newStock = (res[i].stock_quantity - userPurchase.inputNumber);
-//               var purchaseId = (userPurchase.inputId);
-//               //console.log(newStock);
-//               confirmPrompt(newStock, purchaseId);
-//           }
-//       }
-//   });
-// });
-// }
