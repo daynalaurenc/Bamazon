@@ -1,9 +1,9 @@
 # Bamazon
 
 Bamazon will be a command line Node app that takes in parameters and gives user back data. 
-MySQL is used as the schema to hold the inventory database.
+MySQL is used as the schema for the inventory database.
 
-* Make sure you save and require the MySQL and Inquirer npm packages in your homework files--your app will need them for data input and storage.
+* Make sure you save and require the MySQL and Inquirer npm packages, your app will need them for data input and storage.
 
 
 ## Description
