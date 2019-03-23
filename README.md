@@ -24,8 +24,8 @@ Displayed as : | item_id | product_name | department_name | price | stock_quanti
 
 ## Sample View
 
-![Bamazon Screenshot](/images/transaction.jpg/)
-![Bamazon Screenshot](/images/update_inventory.jpg/)
+![Bamazon Screenshot](/img/transaction.jpg/)
+![Bamazon Screenshot](/img/update_inventory.jpg/)
 
 
 
