@@ -12,7 +12,6 @@ var connection = mysql.createConnection({
 connection.connect(function (err, res) {
   if (err) throw err;
   readProducts();
-  // productChoice();
 });
 
 function readProducts() {
@@ -37,50 +36,11 @@ function readProducts() {
             askQuantity(answer.item_id);
             // connection.end();
           }
-          // runSearch();
         });
       })
 
   });
 }
-
-// function askQuantity(item_id) {
-//   inquirer.prompt({
-
-//     name: "quantity",
-//     type: "input",
-//     message: "How many units of this item would you like to purchase?"
-
-//   }).then(function (user) {
-//    connection.query("SELECT stock_quantity FROM products WHERE ?", { item_id: parseInt(item_id) }, function (err, res) {
-//       // if (err) throw err;
-//       for (var i = 0; i < res.length; i++) { 
-//         var currentStock = res[0].stock_quantity;
-//         var itemPrice = res[0].price;
-//         // connection.end();
-//         if (user.quantity > res[0].stock_quantity) {
-//           console.log("Sorry! Not enough in stock. Please try again later.");
-//           // askQuantity();
-//           readProducts();
-//         } else {
-//           console.log("Awesome! We can fulfull your order.");
-//           console.log("Quantity: " + res[0].stock_quantity - user.quantity);
-//           // console.log("----------------");
-//           updatedQ= parseInt(res[0].stock_quantity) - parseInt(user.quantity)
-//           console.log("below should be 47")
-//           console.log(updatedQ)
-//           connection.query("UPDATE products SET stock_quantity = ? WHERE item_id = ?", [updatedQ , item_id ], function (err, res) {
-//               console.log("updated")
-//           })
-        
-//           // var newStock = (res[i].stock_quantity - user.item_id);
-//           // var purchaseId = (user.item_id);
-         
-//         }
-//       };
-//     });
-//   })
-// }
 
 
 function askQuantity(item_id) {
